@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    [SerializeField] private GameInput _gameInput;
+    [SerializeField] private InputReader _inputRader;
 
     private Animator _animator;
 
@@ -13,9 +13,19 @@ public class PlayerAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        _animator.SetFloat("Horizontal", _gameInput.InputVector.x);
-        _animator.SetFloat("Speed", _gameInput.InputVector.sqrMagnitude);
+        _inputRader.InputChanged += SetMove;
+    }
+
+    private void OnDisable()
+    {
+        _inputRader.InputChanged -= SetMove;
+    }
+
+    private void SetMove(Vector2 vector2)
+    {
+        _animator.SetFloat("Horizontal", vector2.x);
+        _animator.SetFloat("Speed", _inputRader.InputVector.sqrMagnitude);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private CoinPrefab _coinPrefab;
+    [SerializeField] private Coin _coin;
     [SerializeField] private Transform[] _spawnPoints;
 
     private List<int> _numbers = new List<int>();
@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
             if (_numbers.Contains(number) == false)
             {
                 Transform position = _spawnPoints[number];
-                CoinPrefab spawnObject = Instantiate(_coinPrefab, position);
+                Coin spawnObject = Instantiate(_coin, position);
                 _numbers.Add(number);
                 _spawnCount--;
             }

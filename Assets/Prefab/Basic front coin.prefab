@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2755895080422047149}
   - component: {fileID: 5596968192119422040}
   - component: {fileID: 4701957394868707864}
-  - component: {fileID: 4213345529535472116}
+  - component: {fileID: 5611858111834104299}
   m_Layer: 0
   m_Name: Basic front coin
   m_TagString: Untagged
@@ -152,7 +152,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4213345529535472116
+--- !u!114 &5611858111834104299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,6 +161,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4835236121870246178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411fd92e8a37af9408b3ebbcf426de33, type: 3}
+  m_Script: {fileID: 11500000, guid: beb192c44617ba145afda2f82a6143e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin

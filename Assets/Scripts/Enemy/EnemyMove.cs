@@ -8,11 +8,10 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private float _timeOfWaiting = 2f;
 
     private int _currentWaypoint = 0;
-    private bool _isMoving = true;
 
     private Coroutine _coroutine;
 
-    public bool IsMoving => _isMoving;
+    public bool IsMoving { get; private set; } = false;
 
     private void Start()
     {
@@ -21,7 +20,7 @@ public class EnemyMove : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(MoveWithDelay());
+        StopCoroutine(_coroutine);
     }
 
     public int GetDirectionMoving()
@@ -48,11 +47,11 @@ public class EnemyMove : MonoBehaviour
             if (transform.position == _wayPoint[_currentWaypoint].position)
             {
                 _currentWaypoint = ++_currentWaypoint % _wayPoint.Length;
-                _isMoving = false;
-                yield return _waitForSeconds; 
+                IsMoving = false;
+                yield return _waitForSeconds;
             }
-            
-            _isMoving = true;
+
+            IsMoving = true;
             transform.position = Vector3.MoveTowards(transform.position, _wayPoint[_currentWaypoint].position, _speed * Time.deltaTime);
             yield return null;
         }

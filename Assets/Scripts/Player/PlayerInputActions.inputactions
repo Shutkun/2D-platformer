@@ -27,7 +27,7 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD/Arrow",
+                    "name": "AD/Arrow",
                     "id": "3c37ca11-afa4-44da-8fbb-7d8d753fba20",
                     "path": "2DVector",
                     "interactions": "",
@@ -39,7 +39,7 @@
                 },
                 {
                     "name": "Up",
-                    "id": "0c5aeb61-fd56-49c9-b454-7667083b12dd",
+                    "id": "bf0b3889-5384-4a3c-871e-f65177884e18",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -50,7 +50,7 @@
                 },
                 {
                     "name": "Down",
-                    "id": "8b89a6f3-8f62-43aa-a09d-027a7c15c78a",
+                    "id": "a28941aa-cb14-4119-ada6-6d931037c59b",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -61,7 +61,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "bf0b3889-5384-4a3c-871e-f65177884e18",
+                    "id": "15d14f62-1bc6-4bd7-9bb5-a8fc37a30fdd",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -83,7 +83,7 @@
                 },
                 {
                     "name": "Up",
-                    "id": "73938210-2b5f-44e2-8a59-98590eb73bc2",
+                    "id": "e516bb6b-9f59-44aa-91dc-48947fa49f57",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -94,7 +94,7 @@
                 },
                 {
                     "name": "Down",
-                    "id": "ec8b3d75-f9cf-4fdf-b0c3-3c91c5347959",
+                    "id": "2c7c497a-5dd8-4585-a9a2-9c76289b8173",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",

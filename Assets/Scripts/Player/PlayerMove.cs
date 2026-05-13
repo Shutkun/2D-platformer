@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed = 8f;
-    [SerializeField] private float _jumpForce = 15f;
-    [SerializeField] private GameInput _gameInput;
+    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private Player _player;
 
     private Rigidbody2D _rigidbody;
     private float _gravityScale;
@@ -18,14 +18,18 @@ public class PlayerMove : MonoBehaviour
         _gravityScale = _rigidbody.gravityScale;
     }
 
-    private void FixedUpdate()
+    private void OnEnable()
     {
-        Move();
+        _player.enterLadder += EnterLadder;
+        _player.exitLadder += ExitLadder;
+        _inputReader.InputChanged += Move;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        Jump();
+        _player.enterLadder -= EnterLadder;
+        _player.exitLadder -= ExitLadder;
+        _inputReader.InputChanged -= Move;
     }
 
     public void EnterLadder()
@@ -40,28 +44,15 @@ public class PlayerMove : MonoBehaviour
         _rigidbody.gravityScale = _gravityScale;
     }
 
-    private void Move()
+    private void Move(Vector2 inputVector)
     {
-        Vector2 inputVector;
-
         if (isOnLadder)
         {
-            inputVector = _gameInput.GetMovementWithVectorY();
             _rigidbody.linearVelocity = new Vector2(inputVector.x, inputVector.y * _movingSpeed);
         }
         else
         {
-            inputVector = _gameInput.GetMovementWithoutVectorY();
             _rigidbody.linearVelocity = new Vector2(inputVector.x * _movingSpeed, _rigidbody.linearVelocity.y);
-        }
-    }
-
-
-    private void Jump()
-    {
-        if (_gameInput.OnJump())
-        {
-            _rigidbody.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
         }
     }
 }
