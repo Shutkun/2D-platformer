@@ -11,12 +11,12 @@ public class Wallet : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.gotTheCoin += AddCoin;
+        _player.GotTheCoin += AddCoin;
     }
 
     private void OnDisable()
     {
-        _player.gotTheCoin -= AddCoin;
+        _player.GotTheCoin -= AddCoin;
     }
 
     public void AddCoin()

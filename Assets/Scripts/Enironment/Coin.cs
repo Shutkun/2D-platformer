@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void DestroyObject()
     {
-        if(collision.TryGetComponent<Wallet>(out Wallet wallet))
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

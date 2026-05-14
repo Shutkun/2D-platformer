@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private float _jumpForce = 15f;
+    [SerializeField] private float _jumpForce = 17f;
 
     private Rigidbody2D _rigidbody;
 

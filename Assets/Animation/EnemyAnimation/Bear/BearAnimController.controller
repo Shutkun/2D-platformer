@@ -24,7 +24,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizintal
     m_Mirror: 0
-  m_BlendParameter: Horizontal
+  m_BlendParameter: HorizontalAxis
   m_BlendParameterY: Horizintal
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -55,7 +55,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
-  m_BlendParameter: Horizontal
+  m_BlendParameter: HorizontalAxis
   m_BlendParameterY: Horizontal
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -172,7 +172,7 @@ AnimatorController:
   m_Name: BearAnimController
   serializedVersion: 6
   m_AnimatorParameters:
-  - m_Name: Horizontal
+  - m_Name: HorizontalAxis
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

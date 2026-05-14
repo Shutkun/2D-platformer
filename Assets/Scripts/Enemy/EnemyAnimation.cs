@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    private const string Moving = "IsMoving";
-    private const string HorizontalAxis = "Horizontal";
+    private readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
+    private readonly int HorizontalAxis = Animator.StringToHash(nameof(HorizontalAxis));
 
     [SerializeField] private EnemyMove _enemyMove;
 
@@ -16,9 +16,19 @@ public class EnemyAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        _animator.SetBool(Moving, _enemyMove.IsMoving);
-        _animator.SetFloat(HorizontalAxis, _enemyMove.GetDirectionMoving());
+        _enemyMove.DirectionChanged += SetMove;
+    }
+
+    private void OnDisable()
+    {
+        _enemyMove.DirectionChanged -= SetMove;
+    }
+
+    private void SetMove(int direction)
+    {
+        _animator.SetBool(IsMoving, _enemyMove.IsMoving);
+        _animator.SetFloat(HorizontalAxis, direction);
     }
 }

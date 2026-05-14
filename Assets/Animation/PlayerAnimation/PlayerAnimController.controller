@@ -123,7 +123,7 @@ AnimatorController:
   m_Name: PlayerAnimController
   serializedVersion: 6
   m_AnimatorParameters:
-  - m_Name: Horizontal
+  - m_Name: HorizontalAxis
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -190,7 +190,7 @@ AnimatorStateMachine:
     m_Position: {x: 460, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2396321737275342854}
-    m_Position: {x: 457.26096, y: 113.07535, z: 0}
+    m_Position: {x: 460, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -225,7 +225,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Horizontal
+  m_BlendParameter: HorizontalAxis
   m_BlendParameterY: VectorX
   m_MinThreshold: -1
   m_MaxThreshold: 1

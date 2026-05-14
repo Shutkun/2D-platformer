@@ -3,21 +3,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public event Action gotTheCoin;
-    public event Action enterLadder;
-    public event Action exitLadder;
+    public event Action GotTheCoin;
+    public event Action EnterLadder;
+    public event Action ExitLadder;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Coin>(out _))
+        if (collision.TryGetComponent<Coin>(out Coin coin))
         {
-            gotTheCoin?.Invoke();
+            coin.DestroyObject();
+            GotTheCoin?.Invoke();
             return;
         }
 
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            enterLadder?.Invoke();
+            EnterLadder?.Invoke();
         }
     }
 
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     {
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            exitLadder?.Invoke();
+            ExitLadder?.Invoke();
         }
     }
 }

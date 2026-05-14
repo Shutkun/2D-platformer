@@ -20,15 +20,15 @@ public class PlayerMove : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.enterLadder += EnterLadder;
-        _player.exitLadder += ExitLadder;
+        _player.EnterLadder += EnterLadder;
+        _player.ExitLadder += ExitLadder;
         _inputReader.InputChanged += Move;
     }
 
     private void OnDisable()
     {
-        _player.enterLadder -= EnterLadder;
-        _player.exitLadder -= ExitLadder;
+        _player.EnterLadder -= EnterLadder;
+        _player.ExitLadder -= ExitLadder;
         _inputReader.InputChanged -= Move;
     }
 

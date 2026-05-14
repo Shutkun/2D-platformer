@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    private readonly int Speed =Animator.StringToHash(nameof(Speed));
+    private readonly int HorizontalAxis = Animator.StringToHash(nameof(HorizontalAxis));
+
     [SerializeField] private InputReader _inputRader;
 
     private Animator _animator;
@@ -25,7 +28,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetMove(Vector2 vector2)
     {
-        _animator.SetFloat("Horizontal", vector2.x);
-        _animator.SetFloat("Speed", _inputRader.InputVector.sqrMagnitude);
+        _animator.SetFloat(HorizontalAxis, vector2.x);
+        _animator.SetFloat(Speed, _inputRader.InputVector.sqrMagnitude);
     }
 }
