@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField] private SearchPlayer _searchPlayer;
     [SerializeField] private Transform[] _wayPoint;
     [SerializeField] private float _speed;
     [SerializeField] private float _timeOfWaiting = 2f;
+    [SerializeField] private float _stoppingDistance = 3f;
 
     public event Action<int> DirectionChanged;
 
@@ -16,9 +18,15 @@ public class EnemyMove : MonoBehaviour
 
     public bool IsMoving { get; private set; } = false;
 
+    private void OnEnable()
+    {
+        _searchPlayer.FoundPlayer += MoveToPlayer;
+        _searchPlayer.LostPlayer += StartRoaming;
+    }
+
     private void Start()
     {
-        _coroutine = StartCoroutine(MoveWithDelay());
+        _coroutine = StartCoroutine(Roam());
     }
 
     private void Update()
@@ -28,7 +36,13 @@ public class EnemyMove : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(_coroutine);
+        _searchPlayer.FoundPlayer -= MoveToPlayer;
+        _searchPlayer.LostPlayer -= StartRoaming;
+
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
     }
 
     private int GetDirectionMoving()
@@ -48,7 +62,31 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveWithDelay()
+    private void MoveToPlayer()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+
+        Vector3 targetPosition = _searchPlayer.targetPosition.position;
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        IsMoving = true;
+
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);
+
+        if (distanceToTarget <= _stoppingDistance)
+        {
+            IsMoving = false;
+        }
+    }
+
+    private void StartRoaming()
+    {
+        _coroutine = StartCoroutine(Roam());
+    }
+
+    private IEnumerator Roam()
     {
         WaitForSeconds _waitForSeconds = new WaitForSeconds(_timeOfWaiting);
 
