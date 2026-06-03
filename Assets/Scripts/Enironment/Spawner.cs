@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Coin _coin;
+    [SerializeField] private FirstAidKit _firstAidKit;
     [SerializeField] private Transform[] _spawnPoints;
 
     private List<int> _numbers = new List<int>();
-    private int _spawnCount = 2;
+    private int _spawnCount = 1;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
             if (_numbers.Contains(number) == false)
             {
                 Transform position = _spawnPoints[number];
-                Coin spawnObject = Instantiate(_coin, position);
+                FirstAidKit spawnObject = Instantiate(_firstAidKit, position);
                 _numbers.Add(number);
                 _spawnCount--;
             }

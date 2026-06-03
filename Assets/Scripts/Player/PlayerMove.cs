@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed = 8f;
+    [Space]
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Player _player;
 
     private Rigidbody2D _rigidbody;
+
     private float _gravityScale;
     private bool isOnLadder = false;
 

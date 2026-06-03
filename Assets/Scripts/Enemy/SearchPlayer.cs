@@ -3,25 +3,43 @@ using UnityEngine.Events;
 
 public class SearchPlayer : MonoBehaviour
 {
-    public event UnityAction FoundPlayer;
-    public event UnityAction LostPlayer;
+    [SerializeField] private float _distanceChasing = 10f;
+    [Space]
+    [SerializeField] private Player _player;
 
-    public Transform targetPosition { get; private set; }
+    private bool _isFoundPlayer;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public event UnityAction<bool> FoundPlayer;
+    public event UnityAction<bool> LostPlayer;
+
+    public Vector3 PlayerPosition { get; private set; }
+
+    private void Update()
     {
-        if (collision.TryGetComponent<Player>(out Player target))
-        {
-            targetPosition = target.gameObject.transform;
-            FoundPlayer?.Invoke();
-        }
+        TrackingDistanceToPlayer();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void TrackingDistanceToPlayer()
     {
-        if (collision.TryGetComponent<Player>(out _))
+        PlayerPosition = _player.gameObject.transform.position;
+        Vector3 distance = PlayerPosition - transform.position;
+        distance.y = 0;
+        float distanceSq = distance.sqrMagnitude;
+
+        DetectedPlayer(distanceSq);
+    }
+
+    private void DetectedPlayer(float distance)
+    {
+        if (distance <= _distanceChasing)
         {
-            LostPlayer?.Invoke();
+            _isFoundPlayer = true;
+            FoundPlayer?.Invoke(_isFoundPlayer);
+        }
+        else
+        {
+            _isFoundPlayer = false;
+            LostPlayer?.Invoke(_isFoundPlayer);
         }
     }
 }
