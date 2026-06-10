@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Wallet : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Looter _lotter;
 
     private int _amountCoins = 0;
 
@@ -11,12 +11,12 @@ public class Wallet : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.GotTheCoin += AddCoin;
+        _lotter.GotTheCoin += AddCoin;
     }
 
     private void OnDisable()
     {
-        _player.GotTheCoin -= AddCoin;
+        _lotter.GotTheCoin -= AddCoin;
     }
 
     public void AddCoin()

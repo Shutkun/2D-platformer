@@ -3,59 +3,33 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
+    [SerializeField] private Health _health;
+    [SerializeField] private Looter _looter;
 
-    private int _currentHealth;
-    private int _healPower = 30;
-
-    public event Action GotTheCoin;
     public event Action EnterLadder;
     public event Action ExitLadder;
-    public event Action <Enemy> TargetClosed;
+    public event Action<Enemy> TargetClosed;
 
-    private void Awake()
+    private void Update()
     {
-        _currentHealth = _maxHealth;
+        Die();
     }
 
     public void ApplyDamage(int damage)
     {
-        if (_currentHealth > 0)
-        {
-            _currentHealth -= damage;
-            Debug.Log("У игрока осталось " + _currentHealth + " ХП");
-        }
-        else
-        {
-            Debug.Log("Игрок умер!");
-            Destroy(gameObject);
-        }
+        _health.TakeDamage(damage);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Coin>(out Coin coin))
-        {
-            coin.DestroyObject();
-            GotTheCoin?.Invoke();
-            return;
-        }
-
         if (collision.TryGetComponent<Ladder>(out _))
         {
             EnterLadder?.Invoke();
         }
 
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy) )
+        if (collision.TryGetComponent<Enemy>(out Enemy enemy))
         {
             TargetClosed?.Invoke(enemy);
-        }
-
-        if (collision.TryGetComponent<FirstAidKit>(out FirstAidKit firstAidKit))
-        {
-            firstAidKit.DestroyObject();
-            Healing();
-            Debug.Log("Игрок поднял аптечку, теперь у него " + _currentHealth);
         }
     }
 
@@ -67,15 +41,12 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void Healing()
+    private void Die()
     {
-        if((_currentHealth +=_healPower) <= _maxHealth)
+        if (_health.CurrentHealth <= 0)
         {
-            _currentHealth += _healPower;
-        }
-        else
-        {
-            _currentHealth = _maxHealth;
+            Debug.Log("Игрок умер!");
+            Destroy(gameObject);
         }
     }
 }

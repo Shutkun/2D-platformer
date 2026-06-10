@@ -2,25 +2,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
-    [Space]
+    [SerializeField] private EnemyHealth _enemyHealth;
     [SerializeField] private EnemyMover _enemyMover;
     [SerializeField] private SearchPlayer _searchPlayer;
     [SerializeField] private EnemyAnimation _enemyAnimation;
     [SerializeField] private AttackAnimation _attackAnimation;
 
-    private int _currentHealth;
     private bool _isCatchTarget = false;
 
     private void OnEnable()
     {
         _searchPlayer.FoundPlayer += CheckTarget;
         _searchPlayer.LostPlayer += CheckTarget;
-    }
-
-    private void Start()
-    {
-        _currentHealth = _maxHealth;
     }
 
     private void OnDisable()
@@ -32,18 +25,12 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Update()
     {
         PlayAction();
+        Die();
     }
 
     public void ApplyDamage(int damage)
     {
-        if (_currentHealth <= 0)
-        {
-            Debug.Log("Враг умер!");
-            Destroy(gameObject);
-        }
-
-        _currentHealth -= damage;
-        Debug.Log("У врага осталось " + _currentHealth + " ХП");
+        _enemyHealth.TakeDamage(damage);
     }
 
     private void PlayAction()
@@ -88,6 +75,15 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopAttack()
     {
         _attackAnimation.SetAttack(_enemyMover.Direction);
+    }
+
+    private void Die()
+    {
+        if (_enemyHealth.CurrentHealth <= 0)
+        {
+            Debug.Log("Враг умер!");
+            Destroy(gameObject);
+        }
     }
 
     private void CheckTarget(bool isTarget) =>
