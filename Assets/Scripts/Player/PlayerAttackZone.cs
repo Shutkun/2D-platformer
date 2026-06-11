@@ -10,12 +10,12 @@ public class PlayerAttackZone : MonoBehaviour
         _boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
-    private void BoxCollider2DTurnOn()
+    private void TurnOnBoxCollider2D()
     {
         _boxCollider2D.enabled = true;
     }
 
-    private void BoxCollider2DTurnOff()
+    private void TurnOffBoxCollider2D()
     {
         _boxCollider2D.enabled = false;
     }

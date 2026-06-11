@@ -17,10 +17,10 @@ public class Jump : MonoBehaviour
 
     private void Update()
     {
-        OnJump();
+        ApplyForce();
     }
 
-    private void OnJump()
+    private void ApplyForce()
     {
         if (_inputReader.OnJump())
         {

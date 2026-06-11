@@ -8,12 +8,12 @@ public class WalletView : MonoBehaviour
 
     private void OnEnable()
     {
-        _wallet.AmountChanged += DisplayAmount;
+        GameEventManager.Instance.AmountChanged += DisplayAmount;
     }
 
     private void OnDisable()
     {
-        _wallet.AmountChanged -= DisplayAmount;
+        GameEventManager.Instance.AmountChanged -= DisplayAmount;
     }
 
     private void DisplayAmount(int amountCoins)

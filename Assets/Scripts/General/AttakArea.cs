@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 
-public class EnemyAttackArea : MonoBehaviour
+public class AttackArea : MonoBehaviour
 {
     private PolygonCollider2D _polygonCollider;
 
@@ -11,12 +11,12 @@ public class EnemyAttackArea : MonoBehaviour
         _polygonCollider = GetComponent<PolygonCollider2D>();
     }
 
-    public void PolygonColliderTurnOff()
+    public void TurnOffPolygonCollider()
     {
         _polygonCollider.enabled = false;
     }
 
-    public void PolygonColloderTurnOn()
+    public void TurnOnPolygonColloder()
     {
         _polygonCollider.enabled = true;
     }

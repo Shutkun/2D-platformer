@@ -8,12 +8,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.TargetClosed += Attack;
+        GameEventManager.Instance.TargetClosed += Attack;
     }
 
     private void OnDisable()
     {
-        _player.TargetClosed -= Attack;
+        GameEventManager.Instance.TargetClosed -= Attack;
     }
 
     private void Attack(Enemy enemy)

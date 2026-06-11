@@ -9,7 +9,6 @@ public class AnimationAttack : MonoBehaviour
 
     [SerializeField] private float _cooldown = 2f;
     [Space]
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerAnimation _playerAnimation;
 
     private Animator _animator;
@@ -24,12 +23,12 @@ public class AnimationAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.OnAttack += Attack;
+        GameEventManager.Instance.OnAttack += Attack;
     }
 
     private void OnDisable()
     {
-        _inputReader.OnAttack -= Attack;
+        GameEventManager.Instance.OnAttack -= Attack;
 
         StopCoroutine();
     }

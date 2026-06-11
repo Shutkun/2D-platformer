@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class SpawnerFirstAidKits : MonoBehaviour
 {
     [SerializeField] private FirstAidKit _firstAidKit;
     [SerializeField] private Transform[] _spawnPoints;

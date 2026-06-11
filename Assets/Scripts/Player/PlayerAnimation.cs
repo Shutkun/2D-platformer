@@ -11,6 +11,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private InputReader _inputRader;
 
     public float CurrentDirection { get; private set; } = 1f;
+
     private Animator _animator;
 
     private void Awake()
@@ -20,12 +21,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputRader.InputChanged += SetMove;
+        GameEventManager.Instance.InputChanged += SetMove;
     }
 
     private void OnDisable()
     {
-        _inputRader.InputChanged -= SetMove;
+        GameEventManager.Instance.InputChanged -= SetMove;
     }
 
     private void SetMove(Vector2 vector2)

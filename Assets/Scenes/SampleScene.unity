@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 474609082}
   - component: {fileID: 474609081}
   - component: {fileID: 474609088}
+  - component: {fileID: 474609089}
   - component: {fileID: 474609087}
   - component: {fileID: 474609084}
   - component: {fileID: 474609086}
@@ -1007,12 +1008,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0440816d2842bb7469c3ebb9871750c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _enemyHealth: {fileID: 474609088}
+  _health: {fileID: 474609089}
   _enemyMover: {fileID: 474609084}
   _searchPlayer: {fileID: 474609086}
   _enemyAnimation: {fileID: 1815197671}
-  _attackAnimation: {fileID: 1585714293}
 --- !u!114 &474609088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474609080}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1562cb9042e0934b9953f45b3a493d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  _maxHealth: 100
+  <CurrentHealth>k__BackingField: 0
+--- !u!114 &474609089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1021,10 +1035,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 474609080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1562cb9042e0934b9953f45b3a493d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 905e3768eb49c0a41adf9ad8f2b5dd08, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 100
+  _isNPC: 1
+  _looter: {fileID: 1369145005}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,11 +1284,11 @@ GameObject:
   m_Component:
   - component: {fileID: 546303199}
   - component: {fileID: 546303203}
-  - component: {fileID: 546303202}
   - component: {fileID: 546303201}
+  - component: {fileID: 546303206}
   - component: {fileID: 546303205}
   - component: {fileID: 546303200}
-  - component: {fileID: 546303204}
+  - component: {fileID: 546303207}
   m_Layer: 0
   m_Name: PlayerAttack
   m_TagString: Untagged
@@ -1332,52 +1348,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &546303202
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546303198}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.04936731, y: 0.115793526}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.92, y: 1.92}
-    newSize: {x: 1.92, y: 1.92}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.2502849, y: 0.42103302}
-  m_EdgeRadius: 0
 --- !u!212 &546303203
 SpriteRenderer:
   serializedVersion: 2
@@ -1437,18 +1407,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
---- !u!114 &546303204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546303198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7b811cc1e2ea045a0f4a1dcd3d029d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackZone
 --- !u!114 &546303205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,6 +1421,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   _damage: 20
   _player: {fileID: 1369145002}
+--- !u!60 &546303206
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546303198}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.92, y: 1.92}
+    newSize: {x: 1.92, y: 1.92}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.18194342, y: 0.15497422}
+      - {x: -0.17880803, y: 0.07046893}
+      - {x: -0.17942351, y: -0.13784838}
+      - {x: -0.16780114, y: -0.1420809}
+      - {x: 0.15516484, y: -0.14189148}
+      - {x: 0.15454888, y: 0.15537614}
+  m_UseDelaunayMesh: 1
+--- !u!114 &546303207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546303198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed29c7fdb21f584fb0b1d20d31e09d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackArea
 --- !u!1 &607378575
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,6 +3400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 10000
+  _isNPC: 0
   _looter: {fileID: 1369145005}
 --- !u!114 &1369145005
 MonoBehaviour:
@@ -3603,9 +3627,9 @@ GameObject:
   - component: {fileID: 1585714292}
   - component: {fileID: 1585714291}
   - component: {fileID: 1585714295}
-  - component: {fileID: 1585714293}
   - component: {fileID: 1585714296}
   - component: {fileID: 1585714297}
+  - component: {fileID: 1585714298}
   m_Layer: 0
   m_Name: BearAtack
   m_TagString: Untagged
@@ -3695,7 +3719,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585714289}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7d624ad54e489414c85b353f5dfcb5d0, type: 2}
   m_CullingMode: 0
@@ -3709,19 +3733,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1585714293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585714289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee7fb3c7e19b747adcdb85e8b59f05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AtackAnimation
-  _enemyMove: {fileID: 474609084}
 --- !u!60 &1585714295
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3805,7 +3816,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   _damage: 500
-  target: {fileID: 1369145002}
+--- !u!114 &1585714298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585714289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b22398ac5ed2c49b30b8eec9435904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimation
+  _enemyMove: {fileID: 474609084}
 --- !u!1 &1615269246
 GameObject:
   m_ObjectHideFlags: 0
@@ -6101,11 +6124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0440816d2842bb7469c3ebb9871750c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _enemyHealth: {fileID: 0}
+  _health: {fileID: 0}
   _enemyMover: {fileID: 2053786772}
   _searchPlayer: {fileID: 2053786773}
   _enemyAnimation: {fileID: 830375791}
-  _attackAnimation: {fileID: 0}
 --- !u!1 &2061809323
 GameObject:
   m_ObjectHideFlags: 0

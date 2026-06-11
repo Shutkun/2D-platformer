@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class InputReader : MonoBehaviour
@@ -6,8 +5,6 @@ public class InputReader : MonoBehaviour
     private PlayerInputActions _actions;
     private Vector2 _inputVector;
 
-    public event Action<Vector2> InputChanged;
-    public event Action OnAttack;
     public Vector2 InputVector => _inputVector;
 
     private void Awake()
@@ -30,12 +27,12 @@ public class InputReader : MonoBehaviour
 
     private void Attack_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        OnAttack?.Invoke();
+        GameEventManager.Instance.TriggerOnAttack();
     }
 
     private void GiveInput()
     {
         _inputVector = _actions.Player.Move.ReadValue<Vector2>();
-        InputChanged?.Invoke(_inputVector);
+        GameEventManager.Instance.TriggerInputChanged(_inputVector);
     }
 }

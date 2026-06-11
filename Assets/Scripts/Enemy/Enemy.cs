@@ -2,42 +2,42 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private EnemyHealth _enemyHealth;
-    [SerializeField] private EnemyMover _enemyMover;
-    [SerializeField] private SearchPlayer _searchPlayer;
-    [SerializeField] private EnemyAnimation _enemyAnimation;
-    [SerializeField] private AttackAnimation _attackAnimation;
+    [SerializeField] private Health _health;
+    [SerializeField] private EnemyMover _mover;
+    [SerializeField] private PlayerLocator _playerLocator;
+    [SerializeField] private EnemyAnimation _animation;
 
     private bool _isCatchTarget = false;
 
     private void OnEnable()
     {
-        _searchPlayer.FoundPlayer += CheckTarget;
-        _searchPlayer.LostPlayer += CheckTarget;
+        GameEventManager.Instance.FoundTarget += SetTarget;
+        GameEventManager.Instance.LostTarget += SetTarget;
+        GameEventManager.Instance.CharacterDied += Die;
     }
 
     private void OnDisable()
     {
-        _searchPlayer.FoundPlayer -= CheckTarget;
-        _searchPlayer.LostPlayer -= CheckTarget;
+        GameEventManager.Instance.FoundTarget -= SetTarget;
+        GameEventManager.Instance.LostTarget -= SetTarget;
+        GameEventManager.Instance.CharacterDied -= Die;
     }
 
     private void Update()
     {
         PlayAction();
-        Die();
     }
 
     public void ApplyDamage(int damage)
     {
-        _enemyHealth.TakeDamage(damage);
+        _health.TakeDamage(damage);
     }
 
     private void PlayAction()
     {
         if (_isCatchTarget)
         {
-            if (_enemyMover.PlayerIsClose)
+            if (_mover.PlayerIsClose)
             {
                 Attack();
             }
@@ -56,36 +56,33 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Roam()
     {
-        _enemyAnimation.SetMove(_enemyMover.Direction);
-        _enemyMover.StartRoaming();
+        _animation.SetMove(_mover.Direction);
+        _mover.StartRoaming();
     }
 
     private void FollowToTarget()
     {
-        _enemyAnimation.SetMove(_enemyMover.Direction);
-        _enemyMover.Сhasing(_searchPlayer.PlayerPosition);
+        _animation.SetMove(_mover.Direction);
+        _mover.Сhasing(_playerLocator.TargetPosition);
     }
 
     private void Attack()
     {
-        _enemyAnimation.SetMove(_enemyMover.Direction);
-        _attackAnimation.SetAttack(_enemyMover.Direction);
+        _animation.SetMove(_mover.Direction);
+        _animation.SetAttack(_mover.Direction);
     }
 
     private void StopAttack()
     {
-        _attackAnimation.SetAttack(_enemyMover.Direction);
+        _animation.SetAttack(_mover.Direction);
     }
 
     private void Die()
     {
-        if (_enemyHealth.CurrentHealth <= 0)
-        {
-            Debug.Log("Враг умер!");
-            Destroy(gameObject);
-        }
+        Debug.Log("Враг умер!");
+        Destroy(gameObject);
     }
 
-    private void CheckTarget(bool isTarget) =>
+    private void SetTarget(bool isTarget) =>
         _isCatchTarget = isTarget;
 }

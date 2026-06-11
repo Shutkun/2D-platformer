@@ -6,13 +6,14 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private Health _health;
     [SerializeField] private Looter _looter;
 
-    public event Action EnterLadder;
-    public event Action ExitLadder;
-    public event Action<Enemy> TargetClosed;
-
-    private void Update()
+    private void OnEnable()
     {
-        Die();
+       GameEventManager.Instance.CharacterDied += Die;
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.Instance.CharacterDied -= Die;
     }
 
     public void ApplyDamage(int damage)
@@ -24,12 +25,12 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            EnterLadder?.Invoke();
+            GameEventManager.Instance.TriggerEnterLadder();
         }
 
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy))
+        if (collision.TryGetComponent<Enemy>(out Enemy targert))
         {
-            TargetClosed?.Invoke(enemy);
+            GameEventManager.Instance.TriggerTargetClosed(targert);
         }
     }
 
@@ -37,13 +38,13 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            ExitLadder?.Invoke();
+            GameEventManager.Instance.TriggerExitLadder();
         }
     }
 
     private void Die()
     {
-        if (_health.CurrentHealth <= 0)
+        if (_health.CurrentValue <= 0)
         {
             Debug.Log("Игрок умер!");
             Destroy(gameObject);
