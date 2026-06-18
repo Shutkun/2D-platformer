@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemyAnimation : MonoBehaviour
 {
     private readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
-    private readonly int HorizontalAxis = Animator.StringToHash(nameof(HorizontalAxis));
     private readonly int PlayerIsClose = Animator.StringToHash(nameof(PlayerIsClose));
-
 
     [SerializeField] private EnemyMover _mover;
 
@@ -18,15 +16,13 @@ public class EnemyAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void SetMove(int direction)
+    public void PlayMove(int direction)
     {
         _animator.SetBool(IsMoving, _mover.IsMoving);
-        _animator.SetFloat(HorizontalAxis, direction);
     }
 
-    public void SetAttack(int direction)
+    public void PlayAttack(int direction)
     {
         _animator.SetBool(PlayerIsClose, _mover.PlayerIsClose);
-        _animator.SetFloat(HorizontalAxis, direction);
     }
 }

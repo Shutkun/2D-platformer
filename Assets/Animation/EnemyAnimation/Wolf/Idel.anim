@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AtackLeft
+  m_Name: Idel
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,18 +20,20 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
-    - time: 0.083333336
-      value: {fileID: -5794280630382045305, guid: e760cdd1cee125647ace52c459a07131, type: 3}
+    - time: 0
+      value: {fileID: 9093273379791366899, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
     - time: 0.16666667
-      value: {fileID: 2938201689779734227, guid: e760cdd1cee125647ace52c459a07131, type: 3}
+      value: {fileID: -5537121572343746790, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
     - time: 0.33333334
-      value: {fileID: 1943824870319576334, guid: e760cdd1cee125647ace52c459a07131, type: 3}
+      value: {fileID: -1851313347890375314, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
+    - time: 0.5
+      value: {fileID: 559054766541415745, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 60
+  m_SampleRate: 24
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -48,15 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -5794280630382045305, guid: e760cdd1cee125647ace52c459a07131, type: 3}
-    - {fileID: 2938201689779734227, guid: e760cdd1cee125647ace52c459a07131, type: 3}
-    - {fileID: 1943824870319576334, guid: e760cdd1cee125647ace52c459a07131, type: 3}
+    - {fileID: 9093273379791366899, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
+    - {fileID: -5537121572343746790, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
+    - {fileID: -1851313347890375314, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
+    - {fileID: 559054766541415745, guid: 29e5d777d1070b74682c5e3b08b420b5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.5416667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -75,18 +78,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.33333334
-    functionName: PolygonColloderTurnOn
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5
-    functionName: PolygonColliderTurnOff
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

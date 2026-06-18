@@ -97,10 +97,16 @@ public class EnemyMover : MonoBehaviour
         if (transform.position.x > targetPosition.x)
         {
             Direction = -1;
+            Vector3 rotate = transform.eulerAngles;
+            rotate.y = 180;
+            transform.rotation = Quaternion.Euler(rotate);
         }
         else
         {
             Direction = 1;
+            Vector3 rotate = transform.eulerAngles;
+            rotate.y = 0;
+            transform.rotation = Quaternion.Euler(rotate);
         }
     }
 }

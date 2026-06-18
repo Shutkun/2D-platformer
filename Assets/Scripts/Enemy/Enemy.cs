@@ -56,25 +56,25 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Roam()
     {
-        _animation.SetMove(_mover.Direction);
+        _animation.PlayMove(_mover.Direction);
         _mover.StartRoaming();
     }
 
     private void FollowToTarget()
     {
-        _animation.SetMove(_mover.Direction);
+        _animation.PlayMove(_mover.Direction);
         _mover.Сhasing(_playerLocator.TargetPosition);
     }
 
     private void Attack()
     {
-        _animation.SetMove(_mover.Direction);
-        _animation.SetAttack(_mover.Direction);
+        _animation.PlayMove(_mover.Direction);
+        _animation.PlayAttack(_mover.Direction);
     }
 
     private void StopAttack()
     {
-        _animation.SetAttack(_mover.Direction);
+        _animation.PlayAttack(_mover.Direction);
     }
 
     private void Die()
