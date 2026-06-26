@@ -7,6 +7,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _movingSpeed = 8f;
     [Space]
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private Player _player;
+    [SerializeField] private RotationObject _rotationObject;
+    [SerializeField] private PlayerAnimation _playerAnimation;
 
     private Rigidbody2D _rigidbody;
 
@@ -21,16 +24,16 @@ public class PlayerMove : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventManager.Instance.EnterLadder += EnterLadder;
-        GameEventManager.Instance.ExitLadder += ExitLadder;
-        GameEventManager.Instance.InputChanged += Move;
+        _player.EnterLadder += EnterLadder;
+        _player.ExitLadder += ExitLadder;
+        _inputReader.InputChanged += Move;
     }
 
     private void OnDisable()
     {
-        GameEventManager.Instance.EnterLadder -= EnterLadder;
-        GameEventManager.Instance.ExitLadder -= ExitLadder;
-        GameEventManager.Instance.InputChanged -= Move;
+        _player.EnterLadder -= EnterLadder;
+        _player.ExitLadder -= ExitLadder;
+        _inputReader.InputChanged -= Move;
     }
 
     public void EnterLadder()
@@ -47,6 +50,9 @@ public class PlayerMove : MonoBehaviour
 
     private void Move(Vector2 inputVector)
     {
+        _rotationObject.FlipHorizontalOrientation(inputVector);
+        _playerAnimation.PlayMove(inputVector);
+
         if (isOnLadder)
         {
             _rigidbody.linearVelocity = new Vector2(inputVector.x, inputVector.y * _movingSpeed);

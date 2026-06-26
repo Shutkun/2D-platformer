@@ -1,44 +1,64 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private readonly int Speed = Animator.StringToHash(nameof(Speed));
-    private readonly int HorizontalAxis = Animator.StringToHash(nameof(HorizontalAxis));
-    private readonly int Direction = Animator.StringToHash(nameof(Direction));
+    private readonly int _speed = Animator.StringToHash(nameof(_speed));
+    private readonly int _onAttack = Animator.StringToHash(nameof(_onAttack));
 
-    [SerializeField] private InputReader _inputRader;
-
-    public float CurrentDirection { get; private set; } = 1f;
+    [SerializeField] private float _cooldown = 1.5f;
 
     private Animator _animator;
+    private Coroutine _coroutine;
+
+    private bool _canAttack = true;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        GameEventManager.Instance.InputChanged += SetMove;
-    }
-
     private void OnDisable()
     {
-        GameEventManager.Instance.InputChanged -= SetMove;
+        StopCoroutine();
     }
 
-    private void SetMove(Vector2 vector2)
+    public void Attack()
     {
-        _animator.SetFloat(HorizontalAxis, vector2.x);
-        _animator.SetFloat(Speed, _inputRader.InputVector.sqrMagnitude);
-
-        if (vector2.x != 0)
+        if (_canAttack == false)
         {
-            CurrentDirection = Mathf.Sign(vector2.x);
+            return;
         }
 
-        _animator.SetFloat(Direction, CurrentDirection);
+        _canAttack = false;
+
+        PlayAttack();
+        _coroutine = StartCoroutine(Cooldown());
+    }
+
+    public void PlayMove(Vector2 vector2)
+    {
+        _animator.SetFloat(_speed, vector2.sqrMagnitude);
+    }
+
+    private IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(_cooldown);
+        _canAttack = true;
+    }
+
+    private void PlayAttack()
+    {
+        _animator.SetTrigger(_onAttack);
+    }
+
+    private void StopCoroutine()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
     }
 }

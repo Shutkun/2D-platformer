@@ -6,14 +6,19 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private Health _health;
     [SerializeField] private Looter _looter;
 
+    public event Action EnterLadder;
+    public event Action ExitLadder;
+
     private void OnEnable()
     {
-       GameEventManager.Instance.CharacterDied += Die;
+        _health.CharacterDied += Die;
+        _looter.Healing += _health.Heal;
     }
 
     private void OnDisable()
     {
-        GameEventManager.Instance.CharacterDied -= Die;
+        _health.CharacterDied -= Die;
+        _looter.Healing -= _health.Heal;
     }
 
     public void ApplyDamage(int damage)
@@ -25,12 +30,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            GameEventManager.Instance.TriggerEnterLadder();
-        }
-
-        if (collision.TryGetComponent<Enemy>(out Enemy targert))
-        {
-            GameEventManager.Instance.TriggerTargetClosed(targert);
+            EnterLadder?.Invoke();
         }
     }
 
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.TryGetComponent<Ladder>(out _))
         {
-            GameEventManager.Instance.TriggerExitLadder();
+            ExitLadder?.Invoke();
         }
     }
 

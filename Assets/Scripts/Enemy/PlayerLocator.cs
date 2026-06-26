@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerLocator : MonoBehaviour
@@ -5,6 +6,9 @@ public class PlayerLocator : MonoBehaviour
     [SerializeField] private float _distanceChasing = 10f;
     [Space]
     [SerializeField] private Player _target;
+
+    public event Action<bool> FoundTarget;
+    public event Action<bool> LostTarget;
 
     private bool _isFoundTarget;
 
@@ -30,12 +34,12 @@ public class PlayerLocator : MonoBehaviour
         if (distance <= _distanceChasing)
         {
             _isFoundTarget = true;
-            GameEventManager.Instance.TriggerFoundTarget(_isFoundTarget);
+            FoundTarget?.Invoke(_isFoundTarget);
         }
         else
         {
             _isFoundTarget = false;
-            GameEventManager.Instance.TriggerLostTarget(_isFoundTarget);
+            LostTarget?.Invoke(_isFoundTarget);
         }
     }
 }

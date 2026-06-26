@@ -31,7 +31,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsMoving
+    m_ConditionEvent: _isMoving
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3606646521428846861}
@@ -58,7 +58,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -1927909335840331551}
-    m_Position: {x: 170, y: 180, z: 0}
+    m_Position: {x: 220, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7750005953794510089}
     m_Position: {x: 430, y: 70, z: 0}
@@ -184,13 +184,13 @@ AnimatorController:
   m_Name: WolfAnimController
   serializedVersion: 6
   m_AnimatorParameters:
-  - m_Name: IsMoving
+  - m_Name: _isMoving
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: PlayerIsClose
+  - m_Name: _playerIsClose
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -247,7 +247,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: PlayerIsClose
+    m_ConditionEvent: _playerIsClose
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1927909335840331551}

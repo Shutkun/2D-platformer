@@ -4,10 +4,7 @@ using UnityEngine;
 public class SpawnerFirstAidKits : MonoBehaviour
 {
     [SerializeField] private FirstAidKit _firstAidKit;
-    [SerializeField] private Transform[] _spawnPoints;
-
-    private List<int> _numbers = new List<int>();
-    private int _spawnCount = 1;
+    [SerializeField] private List<Transform> _spawnPoints;
 
     private void Start()
     {
@@ -16,17 +13,14 @@ public class SpawnerFirstAidKits : MonoBehaviour
 
     private void Spawn()
     {
-        while (_spawnCount > 0)
+        for (int i = 0; i < _spawnPoints.Count; i++)
         {
-            int number = Random.Range(0, _spawnPoints.Length);
+            int index = Random.Range(0, _spawnPoints.Count);
 
-            if (_numbers.Contains(number) == false)
-            {
-                Transform position = _spawnPoints[number];
-                FirstAidKit spawnObject = Instantiate(_firstAidKit, position);
-                _numbers.Add(number);
-                _spawnCount--;
-            }
+            Transform position = _spawnPoints[index];
+            FirstAidKit spawnObject = Instantiate(_firstAidKit, position);
+
+            _spawnPoints.RemoveAt(index);
         }
     }
 }

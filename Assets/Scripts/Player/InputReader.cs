@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
+    [SerializeField] private PlayerAnimation _playerAnimation;
+
     private PlayerInputActions _actions;
     private Vector2 _inputVector;
 
-    public Vector2 InputVector => _inputVector;
+    public event Action<Vector2> InputChanged;
+    public event Action OnAttack;
+
+    public Vector3 InputVector => _inputVector;
 
     private void Awake()
     {
@@ -27,12 +33,13 @@ public class InputReader : MonoBehaviour
 
     private void Attack_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        GameEventManager.Instance.TriggerOnAttack();
+        OnAttack?.Invoke();
+        _playerAnimation.Attack();
     }
 
     private void GiveInput()
     {
         _inputVector = _actions.Player.Move.ReadValue<Vector2>();
-        GameEventManager.Instance.TriggerInputChanged(_inputVector);
+        InputChanged?.Invoke(_inputVector);
     }
 }

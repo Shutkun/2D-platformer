@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    private readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
-    private readonly int PlayerIsClose = Animator.StringToHash(nameof(PlayerIsClose));
-
-    [SerializeField] private EnemyMover _mover;
+    private readonly int _isMoving = Animator.StringToHash(nameof(_isMoving));
+    private readonly int _playerIsClose = Animator.StringToHash(nameof(_playerIsClose));
 
     private Animator _animator;
 
@@ -16,13 +14,13 @@ public class EnemyAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void PlayMove(int direction)
+    public void PlayMove(bool isMoving)
     {
-        _animator.SetBool(IsMoving, _mover.IsMoving);
+        _animator.SetBool(_isMoving, isMoving);
     }
 
-    public void PlayAttack(int direction)
+    public void PlayAttack(bool playerIsClose)
     {
-        _animator.SetBool(PlayerIsClose, _mover.PlayerIsClose);
+        _animator.SetBool(_playerIsClose, playerIsClose);
     }
 }

@@ -1,24 +1,27 @@
+using System;
 using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
-    [SerializeField] private Looter _lotter;
+    [SerializeField] private Looter _lootter;
+
+    public event Action<int> AmountChanged;
 
     private int _amountCoins = 0;
 
     private void OnEnable()
     {
-        GameEventManager.Instance.GotTheCoin += AddCoin;
+        _lootter.GotTheCoin += AddCoin;
     }
 
     private void OnDisable()
     {
-        GameEventManager.Instance.GotTheCoin -= AddCoin;
+        _lootter.GotTheCoin -= AddCoin;
     }
 
     public void AddCoin()
     {
         _amountCoins++;
-        GameEventManager.Instance.TriggerAmountChanged(_amountCoins);
+        AmountChanged?.Invoke(_amountCoins);
     }
 }
