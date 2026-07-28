@@ -5,7 +5,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int _maxValue;
 
-    public event Action CharacterDied;
+    public event Action<int> ValueChange;
 
     public int CurrentValue { get; private set; }
     public int MaxValue => _maxValue;
@@ -15,26 +15,28 @@ public class Health : MonoBehaviour
         CurrentValue = _maxValue;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage) =>
+        ChangeValue(-damage);
+       
+
+    public void Heal(int healthPower) =>
+       ChangeValue(healthPower);
+
+    private void ChangeValue(int value)
     {
-        CurrentValue -= damage;
+        if (CurrentValue > _maxValue)
+        {
+            return;
+        }
 
         if (CurrentValue <= 0)
         {
-            CharacterDied?.Invoke();
-        }
-    }
-
-    public void Heal(int healthPower)
-    {
-        CurrentValue += healthPower;
-
-        if (CurrentValue > MaxValue)
-        {
-            CurrentValue = _maxValue;
+            Destroy(gameObject);
+            return;
         }
 
-        Debug.Log("Игрок поднял аптечку, теперь у него " + CurrentValue);
+        CurrentValue = Mathf.Clamp(CurrentValue + value, 0, _maxValue);
+        ValueChange?.Invoke(CurrentValue);
     }
 }
 

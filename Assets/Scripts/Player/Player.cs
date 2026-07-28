@@ -11,13 +11,11 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        _health.CharacterDied += Die;
         _looter.Healing += _health.Heal;
     }
 
     private void OnDisable()
     {
-        _health.CharacterDied -= Die;
         _looter.Healing -= _health.Heal;
     }
 
@@ -39,15 +37,6 @@ public class Player : MonoBehaviour, IDamageable
         if (collision.TryGetComponent<Ladder>(out _))
         {
             ExitLadder?.Invoke();
-        }
-    }
-
-    private void Die()
-    {
-        if (_health.CurrentValue <= 0)
-        {
-            Debug.Log("Игрок умер!");
-            Destroy(gameObject);
         }
     }
 }

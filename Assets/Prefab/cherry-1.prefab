@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42666bf27e95eb643b17e81c7edf33f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirstAidKit
+  _healPower: 500
 --- !u!60 &3719415836901640788
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -15,14 +15,12 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _playerLocator.FoundTarget += SetTarget;
         _playerLocator.LostTarget += SetTarget;
-        _health.CharacterDied += Die;
     }
 
     private void OnDisable()
     {
         _playerLocator.FoundTarget -= SetTarget;
         _playerLocator.LostTarget -= SetTarget;
-        _health.CharacterDied -= Die;
     }
 
     private void Update()
@@ -79,12 +77,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopAttack()
     {
         _animation.PlayAttack(_patroller.PlayerIsClose);
-    }
-
-    private void Die()
-    {
-        Debug.Log("Враг умер!");
-        Destroy(gameObject);
     }
 
     private void SetTarget(bool isTarget) =>
