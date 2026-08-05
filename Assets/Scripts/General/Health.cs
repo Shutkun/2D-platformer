@@ -17,7 +17,6 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage) =>
         ChangeValue(-damage);
-       
 
     public void Heal(int healthPower) =>
        ChangeValue(healthPower);
