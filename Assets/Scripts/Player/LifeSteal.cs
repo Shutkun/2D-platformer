@@ -22,6 +22,14 @@ public class LifeSteal : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<IDamageable>(out IDamageable component))
+        {
+            StopDrain();
+        }
+    }
+
     private void OnDisable()
     {
         StopDrain();

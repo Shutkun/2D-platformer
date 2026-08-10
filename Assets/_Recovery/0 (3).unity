@@ -5794,6 +5794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a115e77dfd46c40a42b4cab4155f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlowCastBar
+  _speedChangeSlider: 60
   _abilityConfig: {fileID: 595080608}
   _slider: {fileID: 1546741777}
 --- !u!1 &1565968552
